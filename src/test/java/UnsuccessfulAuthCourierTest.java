@@ -21,8 +21,10 @@ public class UnsuccessfulAuthCourierTest {
     public void courierAuthWithWrongData() {
 
         ValidatableResponse auth = authCourier.postFullAuthData(courierLogin, courierPassword);
-        auth.assertThat().body("message", equalTo("Учетная запись не найдена"))
-                .and().statusCode(404);
+        auth.assertThat()
+                .statusCode(404)
+                .and()
+                .body("message", equalTo("Учетная запись не найдена"));
     }
 
     //авторизация без одного поля (без пароля)
@@ -34,7 +36,9 @@ public class UnsuccessfulAuthCourierTest {
     public void courierAuthWithoutPassword() {
 
         ValidatableResponse auth = authCourier.postLoginOnly(courierLogin);
-        auth.assertThat().body("message", equalTo("Недостаточно данных для входа"))
-                .and().statusCode(400);
+        auth.assertThat()
+                .statusCode(400)
+                .and()
+                .body("message", equalTo("Недостаточно данных для входа"));
     }
 }

@@ -18,7 +18,8 @@ public class UnsuccessfulCreateCourierTest {
 
         ValidatableResponse response = createCourier.postLoginOnly(courierLogin);
         response.assertThat()
-                .body("message", equalTo("Недостаточно данных для создания учетной записи"))
-                .and().statusCode(400);
+                .statusCode(400)
+                .and()
+                .body("message", equalTo("Недостаточно данных для создания учетной записи"));
     }
 }

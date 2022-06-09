@@ -21,9 +21,11 @@ public class GetOrderListTest {
         Response response = given()
                 .get("api/v1/orders");
         response.then().assertThat()
+                .statusCode(200)
+                .and()
                 .body("orders", notNullValue(),
                         "pageInfo", notNullValue(),
-                        "availableStations", notNullValue())
-                .and().statusCode(200);
+                        "availableStations", notNullValue());
+
     }
 }

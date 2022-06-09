@@ -26,14 +26,16 @@ public class SuccessfulCreateCourierTest {
         //создаем курьера
         ValidatableResponse create = createCourier.postFullData(courierLogin, courierPassword, courierFirstName);
         create.assertThat()
-                .body("ok", equalTo(true))
-                .and().statusCode(201);
+                .statusCode(201)
+                .and()
+                .body("ok", equalTo(true));
 
         //создание курьера с неуникальным логином
         ValidatableResponse auth = createCourier.postFullData(courierLogin, courierPassword, courierFirstName);
         auth.assertThat()
-                .body("message", equalTo("Этот логин уже используется. Попробуйте другой."))
-                .and().statusCode(409);
+                .statusCode(409)
+                .and()
+                .body("message", equalTo("Этот логин уже используется. Попробуйте другой."));
     }
 
     @After
@@ -42,14 +44,16 @@ public class SuccessfulCreateCourierTest {
         //логинимся курьером с целью узнать id
         ValidatableResponse auth = authCourier.postFullAuthData(courierLogin, courierPassword);
         auth.assertThat()
-                .body("id", notNullValue())
-                .and().statusCode(200);
+                .statusCode(200)
+                .and()
+                .body("id", notNullValue());
         int courierId = auth.extract().body().path("id");
 
         //удаляем курьера
         ValidatableResponse delete = deleteCourier.deleteCourierByID(courierId);
         delete.assertThat()
-                .body("ok", equalTo(true))
-                .and().statusCode(200);
+                .statusCode(200)
+                .and()
+                .body("ok", equalTo(true));
     }
 }

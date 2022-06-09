@@ -61,7 +61,7 @@ public class CreateOrderTest {
                 phone, rentTime,
                 deliveryDate, comment, color);
         int trackId = response.extract().path("track");
-        response.assertThat().body("track", notNullValue()).and().statusCode(201);
+        response.assertThat().statusCode(201).and().body("track", notNullValue());
         System.out.println(trackId);
     }
 }

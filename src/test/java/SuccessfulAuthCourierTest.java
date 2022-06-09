@@ -31,8 +31,8 @@ public class SuccessfulAuthCourierTest {
         //создаем курьера
         ValidatableResponse create = createCourier.postFullData(courierLogin, courierPassword, courierFirstName);
         create.assertThat()
-                .body("ok", equalTo(true))
-                .and().statusCode(201);
+                .statusCode(201)
+                .and().body("ok", equalTo(true));
     }
 
     //проверка успешной авторизации
@@ -44,8 +44,8 @@ public class SuccessfulAuthCourierTest {
         //логинимся курьером с целью узнать id
         ValidatableResponse auth = authCourier.postFullAuthData(courierLogin, courierPassword);
         auth.assertThat()
-                .body("id", notNullValue())
-                .and().statusCode(200);
+                .statusCode(200)
+                .and().body("id", notNullValue());
         courierId = auth.extract().body().path("id");
     }
 
@@ -54,7 +54,7 @@ public class SuccessfulAuthCourierTest {
         //удаляем курьера
         ValidatableResponse delete = deleteCourier.deleteCourierByID(courierId);
         delete.assertThat()
-                .body("ok", equalTo(true))
-                .and().statusCode(200);
+                .statusCode(200)
+                .and().body("ok", equalTo(true));
     }
 }
